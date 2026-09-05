@@ -83,9 +83,19 @@ shape:
     "question": "string",
     "options": ["string", "string", "string", "string"],
     "correct_answer": "string (must exactly match one of the options)",
-    "explanation": "string"
+    "explanation": "string (why the correct answer is right)",
+    "wrong_feedback": {{
+      "<incorrect option text>": "string (why this specific option is wrong)"
+    }},
+    "hints": ["string (subtle hint, does not reveal the answer)", "string (bigger hint, still does not reveal the answer)"]
   }}
 ]
+
+Rules:
+- "wrong_feedback" must contain exactly one entry for every option that is
+  NOT the correct_answer, keyed by the exact option text.
+- Provide exactly 2 "hints" per question, ordered from subtle to more
+  revealing. Never state the answer in a hint.
 
 Document content:
 \"\"\"
@@ -95,7 +105,16 @@ Document content:
 
     model = genai.GenerativeModel(GEMINI_MODEL)
 
-    response = model.generate_content(prompt)
+    # response_mime_type skips markdown-fence wrapping so the model can
+    # return JSON directly, and a lower temperature keeps generation fast
+    # and deterministic for a structured task like this.
+    response = model.generate_content(
+        prompt,
+        generation_config={
+            "temperature": 0.4,
+            "response_mime_type": "application/json",
+        },
+    )
 
     try:
         questions = _extract_json(response.text)
