@@ -1,0 +1,146 @@
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 20px 64px;
+  text-align: left;
+}
+
+.card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin-bottom: 24px;
+}
+
+.card form {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+button {
+  font: inherit;
+  font-size: 15px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: 1px solid var(--accent-border);
+  background: var(--accent-bg);
+  color: var(--accent);
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.info {
+  margin-top: 16px;
+  font-size: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.info p {
+  word-break: break-all;
+}
+
+.error {
+  color: #d64545;
+  margin-top: 12px;
+  font-size: 15px;
+}
+
+.quiz-controls {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.quiz-controls label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 14px;
+}
+
+.quiz-controls input[type="number"] {
+  width: 70px;
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text-h);
+}
+
+.quiz-controls select {
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text-h);
+}
+
+.question {
+  border-top: 1px solid var(--border);
+  padding: 16px 0;
+}
+
+.question:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
+
+.question-text {
+  font-weight: 500;
+  color: var(--text-h);
+  margin-bottom: 12px;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.option.selected {
+  border-color: var(--accent-border);
+  background: var(--accent-bg);
+}
+
+.option.correct {
+  border-color: #3aa76d;
+  background: rgba(58, 167, 109, 0.12);
+}
+
+.option.incorrect {
+  border-color: #d64545;
+  background: rgba(214, 69, 69, 0.12);
+}
+
+.explanation {
+  margin-top: 10px;
+  font-size: 14px;
+  color: var(--text);
+}
+
+.score {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-h);
+}
