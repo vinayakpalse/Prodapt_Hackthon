@@ -1,4 +1,3 @@
-from typing import Generator
 from pymongo import MongoClient, ASCENDING
 from pymongo.database import Database
 from backend.core.config import settings
@@ -14,9 +13,9 @@ client: MongoClient = MongoClient(
 db: Database = client[settings.MONGO_DB_NAME]
 
 
-def get_db() -> Generator[Database, None, None]:
-    """Dependency for obtaining MongoDB database instance."""
-    yield db
+def get_db() -> Database:
+    """Returns the MongoDB database instance. Works as both dependency and direct call."""
+    return db
 
 
 def init_db(database: Database = None) -> None:
@@ -33,6 +32,10 @@ def init_db(database: Database = None) -> None:
         target_db.refresh_tokens.create_index([("token_jti", ASCENDING)], unique=True)
         target_db.refresh_tokens.create_index([("token_hash", ASCENDING)])
         target_db.refresh_tokens.create_index([("user_id", ASCENDING)])
+
+        # Indexes on documents
+        target_db.documents.create_index([("userId", ASCENDING)])
+        target_db.documents.create_index([("createdAt", ASCENDING)])
     except Exception:
         # Index creation failure (e.g. if offline during tests or already exists)
         pass

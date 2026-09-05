@@ -1,45 +1,16 @@
 import pytest
 from datetime import datetime, timedelta, timezone
 from fastapi.testclient import TestClient
-import mongomock
 import jwt
 
 from backend.main import app
-from backend.database.database import get_db, init_db
 from backend.core.security import (
     create_access_token,
     create_refresh_token,
     hash_password,
 )
 from backend.core.config import settings
-
-# Setup in-memory MongoDB mock client for isolated testing
-mock_client = mongomock.MongoClient()
-mock_db = mock_client["test_auth_db"]
-
-
-def override_get_db():
-    yield mock_db
-
-
-app.dependency_overrides[get_db] = override_get_db
-
-
-@pytest.fixture(autouse=True)
-def setup_database():
-    """Clear MongoDB collections before each test."""
-    mock_db.users.drop()
-    mock_db.refresh_tokens.drop()
-    init_db(mock_db)
-    yield
-    mock_db.users.drop()
-    mock_db.refresh_tokens.drop()
-
-
-@pytest.fixture
-def client():
-    """TestClient instance for making API requests."""
-    return TestClient(app)
+from backend.tests.conftest import test_db
 
 
 # =========================================================================
@@ -361,7 +332,7 @@ def test_16_expired_access_token(client):
 # =========================================================================
 def test_17_inactive_user(client):
     now = datetime.now(timezone.utc)
-    res = mock_db.users.insert_one({
+    res = test_db.users.insert_one({
         "name": "Inactive",
         "email": "inactive@example.com",
         "password_hash": hash_password("Password123"),

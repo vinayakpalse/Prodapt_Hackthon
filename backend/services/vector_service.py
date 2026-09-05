@@ -52,6 +52,11 @@ def create_vector_store(chunks, document_id):
     return len(chunks)
 
 
+def store_chunks(document_id, chunks):
+    """Alias for create_vector_store."""
+    return create_vector_store(chunks, document_id)
+
+
 def load_chunks(document_id):
 
     metadata_path = _metadata_path(document_id)

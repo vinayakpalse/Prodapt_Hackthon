@@ -7,6 +7,7 @@ from backend.schemas.auth import (
     MessageResponse,
     ProtectedResponse,
 )
+from backend.schemas.document import DocumentPublic
 
 __all__ = [
     "UserRegister",
@@ -16,4 +17,5 @@ __all__ = [
     "RefreshTokenResponse",
     "MessageResponse",
     "ProtectedResponse",
+    "DocumentPublic",
 ]

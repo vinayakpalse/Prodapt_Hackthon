@@ -65,3 +65,8 @@ def get_current_user(
         )
 
     return user
+
+
+def get_current_user_id(current_user: User = Depends(get_current_user)) -> str:
+    """Returns the authenticated user's ID string."""
+    return str(current_user.id)
