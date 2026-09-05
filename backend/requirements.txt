@@ -8,3 +8,13 @@ pytesseract
 sentence-transformers
 faiss-cpu
 numpy
+pymongo
+dnspython
+mongomock
+pydantic
+pydantic-settings
+email-validator
+pyjwt
+bcrypt
+pytest
+httpx
