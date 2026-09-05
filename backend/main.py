@@ -18,6 +18,7 @@ if str(BACKEND_DIR) not in sys.path:
 from backend.core.config import settings
 from backend.database.database import init_db
 from backend.routers.auth import router as auth_router
+from backend.routers.documents import router as documents_router
 
 load_dotenv()
 
@@ -58,8 +59,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Include Authentication Router
+# Include Authentication & Document Routers
 app.include_router(auth_router)
+app.include_router(documents_router)
 
 
 # ============================================================

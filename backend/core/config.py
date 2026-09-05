@@ -51,6 +51,24 @@ class Settings(BaseSettings):
         description="Allowed CORS origins",
     )
 
+    # Document upload settings
+    MAX_UPLOAD_MB: int = Field(
+        default=20,
+        description="Maximum upload size in megabytes",
+    )
+    UPLOAD_DIR: str = Field(
+        default=str(BACKEND_DIR / "uploads"),
+        description="Upload storage directory",
+    )
+
+    @property
+    def max_upload_mb(self) -> int:
+        return self.MAX_UPLOAD_MB
+
+    @property
+    def upload_dir(self) -> str:
+        return self.UPLOAD_DIR
+
     @field_validator("CORS_ORIGINS", mode="before")
     @classmethod
     def assemble_cors_origins(cls, v: Union[str, List[str]]) -> List[str]:
