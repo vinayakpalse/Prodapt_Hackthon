@@ -99,6 +99,10 @@ class QuizRequest(BaseModel):
     num_questions: int = 5
     difficulty: str = "medium"
 
+class FlashcardRequest(BaseModel):
+    document_id: str
+    num_cards: int = 5
+
 
 # ============================================================
 # HEALTH APIS
@@ -269,6 +273,49 @@ def generate_quiz_endpoint(
     except Exception as error:
         raise HTTPException(status_code=500, detail=str(error))
 
+
+# ============================================================
+# FLASHCARD GENERATION API
+# ============================================================
+
+@app.post("/generate-flashcards")
+def generate_flashcards_endpoint(
+    request: FlashcardRequest
+):
+    from services.flashcard_service import generate_flashcards
+    if request.num_cards < 1 or request.num_cards > 30:
+
+        raise HTTPException(
+            status_code=400,
+            detail="num_cards must be between 1 and 30"
+        )
+
+    try:
+
+        flashcards = generate_flashcards(
+            document_id=request.document_id,
+            num_cards=request.num_cards
+        )
+
+        return {
+            "document_id": request.document_id,
+            "num_cards": len(flashcards),
+            "flashcards": flashcards
+        }
+
+    except ValueError as error:
+
+        raise HTTPException(
+            status_code=400,
+            detail=str(error)
+        )
+
+    except Exception as error:
+
+        raise HTTPException(
+            status_code=500,
+            detail=str(error)
+        )
 
 # ============================================================
 # RUN
