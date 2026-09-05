@@ -34,8 +34,19 @@ htmlcov/
 # Environment Variables & Secrets
 .env
 **/.env
+backend/.env
 !.env.example
 !**/.env.example
+
+# Document Uploads & Vector Store
+uploads/
+vector_store/
+backend/uploads/
+backend/vector_store/
+
+# Node / Frontend
+node_modules/
+dist/
 
 # IDE
 .vscode/
