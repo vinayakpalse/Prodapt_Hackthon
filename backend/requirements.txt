@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+python-multipart
+pymupdf
+python-docx
+pillow
+pytesseract
+sentence-transformers
+faiss-cpu
+numpy
