@@ -35,3 +35,16 @@ export async function generateQuiz(documentId, numQuestions, difficulty) {
 
   return handleResponse(response);
 }
+
+export async function generateFlashcards(documentId, numCards = 5) {
+  const response = await fetch(`${API_BASE}/generate-flashcards`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      document_id: documentId,
+      num_cards: Number(numCards),
+    }),
+  });
+
+  return handleResponse(response);
+}
